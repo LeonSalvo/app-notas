@@ -1,0 +1,12 @@
+services:
+  backend:
+    image: backend-devops
+    container_name: backend-devops
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./data:/app/data
+    command: ["python", "back.py"]
+
+volumes:
+  backend-devops-volume:

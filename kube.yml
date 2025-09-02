@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-devops-config
+  namespace: dev
+data:
+  TITLE: "Backend 1"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-devops
+  namespace: dev
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend-devops
+  template:
+    metadata:
+      labels:
+        app: backend-devops
+    spec:
+      containers:
+        - name: backend-devops
+          image: mini-backend:0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8888
+          envFrom:
+            - configMapRef:
+                name: backend-devops-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-devops
+  namespace: dev
+spec:
+  selector:
+    app: backend-devops
+  ports:
+    - name: http
+      port: 81
+      targetPort: 8888
+  type: ClusterIP

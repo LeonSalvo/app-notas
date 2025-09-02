@@ -1,0 +1,12 @@
+prueba
+Soy una nota
+-EOF-
+prueba
+Soy una nota
+-EOF-
+Hola prueba
+HASDKAS
+-EOF-
+SAPEEE
+Soy una nota
+-EOF-
